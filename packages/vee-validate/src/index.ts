@@ -7,3 +7,4 @@ export { ErrorMessage } from './ErrorMessage';
 export { useField } from './useField';
 export { useForm } from './useForm';
 export * from './useErrors';
+export { useResetForm } from './useResetForm';
