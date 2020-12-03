@@ -297,30 +297,6 @@ export function useForm<TValues extends Record<string, any> = Record<string, any
     unsetPath(formValues, fieldName);
   }
 
-  const formCtx: FormContext<TValues> = {
-    register: registerField,
-    unregister: unregisterField,
-    fields: fieldsById,
-    values: formValues,
-    schema: opts?.validationSchema,
-    validateSchema: isYupValidator(opts?.validationSchema)
-      ? (shouldMutate = false) => {
-          return validateYupSchema(formCtx, shouldMutate);
-        }
-      : undefined,
-    setFieldValue,
-    setValues,
-    setErrors,
-    setFieldError,
-    setFieldTouched,
-    setTouched,
-    setFieldDirty,
-    setDirty,
-    resetForm,
-    meta,
-    isSubmitting,
-  };
-
   const validate = async () => {
     if (formCtx.validateSchema) {
       return formCtx.validateSchema(true).then(results => {
@@ -335,6 +311,31 @@ export function useForm<TValues extends Record<string, any> = Record<string, any
     );
 
     return results.every(r => !r.errors.length);
+  };
+
+  const formCtx: FormContext<TValues> = {
+    register: registerField,
+    unregister: unregisterField,
+    fields: fieldsById,
+    values: formValues,
+    schema: opts?.validationSchema,
+    validateSchema: isYupValidator(opts?.validationSchema)
+      ? (shouldMutate = false) => {
+          return validateYupSchema(formCtx, shouldMutate);
+        }
+      : undefined,
+    validate,
+    setFieldValue,
+    setValues,
+    setErrors,
+    setFieldError,
+    setFieldTouched,
+    setTouched,
+    setFieldDirty,
+    setDirty,
+    resetForm,
+    meta,
+    isSubmitting,
   };
 
   const immutableFormValues = computed<TValues>(() => {

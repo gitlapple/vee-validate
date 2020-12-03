@@ -12,3 +12,4 @@ export * from './useIsDirty';
 export * from './useIsTouched';
 export * from './useIsValid';
 export * from './useIsSubmitting';
+export * from './useValidate';
